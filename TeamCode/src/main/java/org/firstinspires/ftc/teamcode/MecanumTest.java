@@ -24,6 +24,13 @@ public class MecanumTest extends OpMode {
         right_back.setPower(-(double) removeDeadzone(deadzone, gamepad1.left_stick_y));
         right_front.setPower(-(double) removeDeadzone(deadzone, gamepad1.right_stick_y));
     }
+    
+    public void setMotors(lb, lf, rb, rf){
+        left_back.setPower(lb);
+        left_front.setPower(lf);
+        right_back.setPower(rb);
+        right_front.setPower(rf);
+    }
 
     public void stop() {
         left_back.setPower(0);
