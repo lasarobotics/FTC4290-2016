@@ -17,8 +17,9 @@ public class MecanumTest extends OpMode {
     }
 
     public void loop() {
-
+        
         // basic y value movement
+        // this gives a good understanding of how to set our motors: http://ftckey.com/programming/advanced-programming/
         left_back.setPower((double) removeDeadzone(deadzone, gamepad1.left_stick_y));
         left_front.setPower((double) removeDeadzone(deadzone, gamepad1.right_stick_y));
         right_back.setPower(-(double) removeDeadzone(deadzone, gamepad1.left_stick_y));
@@ -39,7 +40,7 @@ public class MecanumTest extends OpMode {
         right_front.setPower(0);
     }
 
-    private float removeDeadzone(float tol, float val) {
+    private float removeDeadzone(float tol, float val) {//recalibrates x,y joysticks
         return Math.abs(val) < tol ? 0 : val;
     }
 }
