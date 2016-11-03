@@ -8,6 +8,10 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 public class MecanumTest extends OpMode {
     DcMotor left_back, left_front, right_back, right_front;
     private float deadzone = 0.05f;
+    
+    int x;
+    int y;
+    int z; //this is the turning direction (ventor)
 
     public void init() {
         left_back = hardwareMap.dcMotor.get("left_back");
