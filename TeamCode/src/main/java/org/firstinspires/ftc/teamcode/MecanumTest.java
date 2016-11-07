@@ -8,11 +8,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 public class MecanumTest extends OpMode {
     DcMotor left_back, left_front, right_back, right_front;
     private float deadzone = 0.05f;
+    public float x,y,z;
+    public static double deadzone = 0.2;
     
-    int x;
-    int y;
-    int z; //this is the turning direction (ventor)
-
     public void init() {
         left_back = hardwareMap.dcMotor.get("left_back");
         left_front = hardwareMap.dcMotor.get("left_front");
@@ -24,6 +22,12 @@ public class MecanumTest extends OpMode {
         
         // basic y value movement
         // this gives a good understanding of how to set our motors: http://ftckey.com/programming/advanced-programming/
+        left_back.setPower((double) removeDeadzone(deadzone, gamepad1.left_stick_y));
+        left_front.setPower((double) removeDeadzone(deadzone, gamepad1.right_stick_y));
+        right_back.setPower(-(double) removeDeadzone(deadzone, gamepad1.left_stick_y));
+        right_front.setPower(-(double) removeDeadzone(deadzone, gamepad1.right_stick_y));
+        
+        //other possibility:
         left_back.setPower((double) removeDeadzone(deadzone, gamepad1.left_stick_y));
         left_front.setPower((double) removeDeadzone(deadzone, gamepad1.right_stick_y));
         right_back.setPower(-(double) removeDeadzone(deadzone, gamepad1.left_stick_y));
