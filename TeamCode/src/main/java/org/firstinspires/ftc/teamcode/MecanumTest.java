@@ -6,38 +6,41 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 @TeleOp(name = "mecanum", group = "test")
 public class MecanumTest extends OpMode {
-    DcMotor left_back, left_front, right_back, right_front;
+    DcMotor back_left, front_left, back_right, front_right;
     private float deadzone = 0.05f;
 
     public void init() {
-        left_back = hardwareMap.dcMotor.get("left_back");
-        left_front = hardwareMap.dcMotor.get("left_front");
-        right_back = hardwareMap.dcMotor.get("right_back");
-        right_front = hardwareMap.dcMotor.get("right_front");
+        back_left = hardwareMap.dcMotor.get("back_left");
+        front_left = hardwareMap.dcMotor.get("front_left");
+        back_right = hardwareMap.dcMotor.get("back_right");
+        front_right = hardwareMap.dcMotor.get("front_right");
     }
 
     public void loop() {
-        
-        // basic y value movement
-        // this gives a good understanding of how to set our motors: http://ftckey.com/programming/advanced-programming/
-        left_back.setPower((double) removeDeadzone(deadzone, gamepad1.left_stick_y));
-        left_front.setPower((double) removeDeadzone(deadzone, gamepad1.right_stick_y));
-        right_back.setPower(-(double) removeDeadzone(deadzone, gamepad1.left_stick_y));
-        right_front.setPower(-(double) removeDeadzone(deadzone, gamepad1.right_stick_y));
-    }
-    
-    public void setMotors(lb, lf, rb, rf){
-        left_back.setPower(lb);
-        left_front.setPower(lf);
-        right_back.setPower(rb);
-        right_front.setPower(rf);
+
+        if ((Math.abs(gamepad1.left_stick_x) < 0.7) && (Math.abs(gamepad1.right_stick_x) < 0.7)) { // basic y value movement
+            back_left.setPower(-(double) removeDeadzone(deadzone, gamepad1.left_stick_y));
+            front_left.setPower(-(double) removeDeadzone(deadzone, gamepad1.left_stick_y));
+            back_right.setPower((double) removeDeadzone(deadzone, gamepad1.right_stick_y));
+            front_right.setPower((double) removeDeadzone(deadzone, gamepad1.right_stick_y));
+        } else if ((gamepad1.left_stick_x + gamepad1.right_stick_x)/2 < 0) { //left
+            back_left.setPower((double) 0.7);
+            front_left.setPower(-(double) 0.7);
+            back_right.setPower((double) 0.7);
+            front_right.setPower(-(double) 0.7);
+        } else if ((gamepad1.left_stick_x + gamepad1.right_stick_x)/2 > 0) { // right
+            back_left.setPower(-(double) 0.7);
+            front_left.setPower((double) 0.7);
+            back_right.setPower(-(double) 0.7);
+            front_right.setPower((double) 0.7);
+        }
     }
 
     public void stop() {
-        left_back.setPower(0);
-        left_front.setPower(0);
-        right_back.setPower(0);
-        right_front.setPower(0);
+        back_left.setPower(0);
+        front_left.setPower(0);
+        back_right.setPower(0);
+        front_right.setPower(0);
     }
 
     private float removeDeadzone(float tol, float val) {//recalibrates x,y joysticks
