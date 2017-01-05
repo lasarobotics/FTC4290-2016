@@ -13,7 +13,7 @@ import static android.os.SystemClock.sleep;
 
 @Autonomous(name = "autonomous", group = "test")
 
-public class AutoTest extends OpMode {
+public class MecanumAutonomous extends OpMode {
     DcMotor back_left, front_left, back_right, front_right;
     
     public void init() {

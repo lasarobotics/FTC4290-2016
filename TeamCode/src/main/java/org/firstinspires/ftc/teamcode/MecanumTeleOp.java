@@ -4,8 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@TeleOp(name = "mecanum", group = "test")
-public class MecanumTest extends OpMode {
+@TeleOp(name = "teleop", group = "test")
+public class MecanumTeleOp extends OpMode {
     DcMotor back_left, front_left, back_right, front_right;
     private float deadzone = 0.05f;
 
@@ -17,7 +17,6 @@ public class MecanumTest extends OpMode {
     }
 
     public void loop() {
-
         if ((Math.abs(gamepad1.left_stick_x) < 0.7) && (Math.abs(gamepad1.right_stick_x) < 0.7)) { // basic y value movement
             back_left.setPower(-(double) removeDeadzone(deadzone, gamepad1.left_stick_y));
             front_left.setPower(-(double) removeDeadzone(deadzone, gamepad1.left_stick_y));
