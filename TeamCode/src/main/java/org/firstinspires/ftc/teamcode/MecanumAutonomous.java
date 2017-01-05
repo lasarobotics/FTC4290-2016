@@ -39,12 +39,13 @@ public class MecanumAutonomous extends OpMode {
         front_left.setPower(-(double) 1);
         back_right.setPower((double) 1);
         front_right.setPower((double) 1);
-        if ( Math.abs(front_right.getCurrentPosition()) > 10 * 1000 )
+        if ( Math.abs(front_right.getCurrentPosition()) > 10000){//encoders
             sleep(30000);
+        }
 
     }
 
-    public void stop() {
+    public void stop() {//sets all motor’s power to 0
         back_left.setPower(0);
         front_left.setPower(0);
         back_right.setPower(0);
