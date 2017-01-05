@@ -8,14 +8,14 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 public class MecanumTeleOp extends OpMode {
     DcMotor back_left, front_left, back_right, front_right;
     private float deadzone = 0.05f;
-
+    /*hardware config-do not edit*/
     public void init() {
         back_left = hardwareMap.dcMotor.get("back_left");
         front_left = hardwareMap.dcMotor.get("front_left");
         back_right = hardwareMap.dcMotor.get("back_right");
         front_right = hardwareMap.dcMotor.get("front_right");
     }
-
+    /*direct mechanum - drives like tank, joysticks are 1:1*/
     public void loop() {
         if ((Math.abs(gamepad1.left_stick_x) < 0.7) && (Math.abs(gamepad1.right_stick_x) < 0.7)) { // basic y value movement
             back_left.setPower(-(double) removeDeadzone(deadzone, gamepad1.left_stick_y));
@@ -34,7 +34,7 @@ public class MecanumTeleOp extends OpMode {
             front_right.setPower((double) 0.7);
         }
     }
-
+    /*sets all motor’s power to 0*/
     public void stop() {
         back_left.setPower(0);
         front_left.setPower(0);
