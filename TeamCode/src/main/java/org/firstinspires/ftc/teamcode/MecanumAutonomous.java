@@ -33,7 +33,7 @@ public class MecanumAutonomous extends OpMode {
         int front_right_position = front_right.getCurrentPosition();
         telemetry.addData("Front Right Position", front_right_position);
     }
-
+/*moves forward to knock the center ball*/
     public void loop() {
         back_left.setPower(-(double) 1);
         front_left.setPower(-(double) 1);
