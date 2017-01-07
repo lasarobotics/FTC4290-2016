@@ -48,7 +48,7 @@ public class FullTeleOp extends OpMode {
         }
 
         if (gamepad2.right_bumper) {
-            shooter.setTargetPosition(1000);
+            shooter.setTargetPosition(1200);
             shooter.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             shooter.setPower(1);
         } else if (gamepad2.left_bumper) {

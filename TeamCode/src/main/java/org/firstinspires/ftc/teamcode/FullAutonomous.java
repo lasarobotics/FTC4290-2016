@@ -17,8 +17,8 @@ public class FullAutonomous extends OpMode {
     DcMotor back_left, front_left, back_right, front_right, shooter, intake;
 
 
-    final static double DIAMETER = 2.5;
-    final static int ENCODER= 1440;
+    final static double DIAMETER = 4;
+    final static int ENCODER = 1440;
     final static double CIRCUMFERENCE = Math.PI * DIAMETER;
     
     public void init() {
@@ -45,7 +45,7 @@ public class FullAutonomous extends OpMode {
     }
 
     public void start() {
-        straight(10);
+        straight(65);
     }
 
     public void stop() {
@@ -61,7 +61,7 @@ public class FullAutonomous extends OpMode {
 
     }
 
-    public void straight(float distance) {
+    public void straight(float distance) { // distance to move forward in inches
 
         front_right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         front_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
