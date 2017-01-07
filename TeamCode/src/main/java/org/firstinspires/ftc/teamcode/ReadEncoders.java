@@ -12,17 +12,28 @@ public class ReadEncoders extends OpMode {
     public void init() {
         back_left = hardwareMap.dcMotor.get("back_left");
         back_left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        back_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
         front_left = hardwareMap.dcMotor.get("front_left");
         front_left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        front_left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
         back_right = hardwareMap.dcMotor.get("back_right");
         back_right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        back_right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
         front_right = hardwareMap.dcMotor.get("front_right");
         front_right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        front_right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
         shooter = hardwareMap.dcMotor.get("shooter");
         shooter.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         shooter.setDirection(DcMotor.Direction.REVERSE);
+        shooter.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
         intake = hardwareMap.dcMotor.get("intake");
         intake.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        intake.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 
     public void loop() {
