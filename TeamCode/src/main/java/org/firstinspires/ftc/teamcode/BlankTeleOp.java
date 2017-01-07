@@ -7,17 +7,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 public class BlankTeleOp extends OpMode {
 
-    
-    public void init() {
-
-    }
-
-    public void loop() {
-
-    }
-
-    public void stop() {
-
-    }
+    public void init() {}
+    public void loop() {}
+    public void stop() {}
 
 }

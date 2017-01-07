@@ -13,8 +13,8 @@ import static android.os.SystemClock.sleep;
 
 @Autonomous(name = "autonomous", group = "test")
 
-public class MecanumAutonomous extends OpMode {
-    DcMotor back_left, front_left, back_right, front_right;
+public class ForwardAutonomous extends OpMode {
+    DcMotor back_left, front_left, back_right, front_right, shooter;
     
     public void init() {
         back_left = hardwareMap.dcMotor.get("back_left");
@@ -32,17 +32,31 @@ public class MecanumAutonomous extends OpMode {
         front_right = hardwareMap.dcMotor.get("front_right");
         int front_right_position = front_right.getCurrentPosition();
         telemetry.addData("Front Right Position", front_right_position);
+
+        shooter = hardwareMap.dcMotor.get("shooter");
     }
 /*moves forward to knock the center ball*/
     public void loop() {
-        back_left.setPower(-(double) 1);
-        front_left.setPower(-(double) 1);
-        back_right.setPower((double) 1);
-        front_right.setPower((double) 1);
-        if ( Math.abs(front_right.getCurrentPosition()) > 10000){//encoders
-            sleep(30000);
+        back_left.setPower(-1.0);
+        front_left.setPower(-1.0);
+        back_right.setPower(1.0);
+        front_right.setPower(1.0);
+        //if (Math.abs(front_right.getCurrentPosition()) > 10 * 1000)
+        //    sleep(30000);
+        while(true) {
+            shooter.setPower(1.0);
+            if (Math.abs(shooter.getCurrentPosition()) < 1 * 1000) {
+                shooter.setPower(0);
+                break;
+            }
         }
-
+        while(true) {
+            shooter.setPower(-1.0);
+            if (Math.abs(shooter.getCurrentPosition()) > 0) {
+                shooter.setPower(0);
+                break;
+            }
+        }
     }
 
     public void stop() {//sets all motor’s power to 0
