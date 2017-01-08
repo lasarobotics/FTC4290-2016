@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 public class ReadEncoders extends OpMode {
     DcMotor back_left, front_left, back_right, front_right, shooter, intake;
+    private float deadzone = 0.05f;
     
     public void init() {
         back_left = hardwareMap.dcMotor.get("back_left");
@@ -37,18 +38,29 @@ public class ReadEncoders extends OpMode {
     }
 
     public void loop() {
-        back_left.setPower(0);
-        front_left.setPower(0);
-        back_right.setPower(0);
-        front_right.setPower(0);
-        intake.setPower(0);
-        shooter.setPower(0);
         telemetry.addData("Back Left", back_left.getCurrentPosition());
         telemetry.addData("Front Left", front_left.getCurrentPosition());
         telemetry.addData("Back Right", back_right.getCurrentPosition());
         telemetry.addData("Front Right", front_right.getCurrentPosition());
         telemetry.addData("Shooter", shooter.getCurrentPosition());
         telemetry.addData("Intake", intake.getCurrentPosition());
+
+        if ((Math.abs(gamepad1.left_stick_x) < 0.7) && (Math.abs(gamepad1.right_stick_x) < 0.7)) {
+            back_left.setPower(-(double) removeDeadzone(deadzone, gamepad1.left_stick_y));
+            front_left.setPower(-(double) removeDeadzone(deadzone, gamepad1.left_stick_y));
+            back_right.setPower((double) removeDeadzone(deadzone, gamepad1.right_stick_y));
+            front_right.setPower((double) removeDeadzone(deadzone, gamepad1.right_stick_y));
+        } else if ((gamepad1.left_stick_x + gamepad1.right_stick_x)/2 < 0) { // left mecanum
+            back_left.setPower(0.7);
+            front_left.setPower(-0.7);
+            back_right.setPower(0.7);
+            front_right.setPower(-0.7);
+        } else if ((gamepad1.left_stick_x + gamepad1.right_stick_x)/2 > 0) { // right mecanum
+            back_left.setPower(-0.7);
+            front_left.setPower(0.7);
+            back_right.setPower(-0.7);
+            front_right.setPower(0.7);
+        }
     }
 
     public void stop() {
@@ -60,4 +72,7 @@ public class ReadEncoders extends OpMode {
         shooter.setPower(0);
     }
 
+    private float removeDeadzone(float tol, float val) {//recalibrates x,y joysticks
+        return Math.abs(val) < tol ? 0 : val;
+    }
 }
