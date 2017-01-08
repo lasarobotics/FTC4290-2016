@@ -16,7 +16,6 @@ public class FullTeleOp extends OpMode {
         front_right = hardwareMap.dcMotor.get("front_right");
         shooter = hardwareMap.dcMotor.get("shooter");
         shooter.setDirection(DcMotor.Direction.REVERSE);
-        //shooter.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         intake = hardwareMap.dcMotor.get("intake");
 
     }
@@ -48,12 +47,8 @@ public class FullTeleOp extends OpMode {
         }
 
         if (gamepad2.right_bumper) {
-            //shooter.setTargetPosition(1440 + (1440/6);
-            //shooter.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             shooter.setPower(1);
         } else {
-            //shooter.setTargetPosition(0);
-            //shooter.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             shooter.setPower(0);
         }
         
