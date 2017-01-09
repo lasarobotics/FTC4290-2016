@@ -7,7 +7,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 @TeleOp(name = "full teleop", group = "test")
 public class FullTeleOp extends OpMode {
     DcMotor back_left, front_left, back_right, front_right, shooter, intake;
-    private float deadzone = 0.05f;
+    private float deadzone = 0.05f;    
+    
+    public bool direction = True;//true-beacon pusher is forward, false-intake is forward
 
     public void init() {
         back_left = hardwareMap.dcMotor.get("back_left");
@@ -21,6 +23,18 @@ public class FullTeleOp extends OpMode {
     }
 
     public void loop() {
+        if(!direction){
+            front_right.setDirection(DcMotor.Direction.REVERSE);
+            front_left.setDirection(DcMotor.Direction.REVERSE);
+            back_right.setDirection(DcMotor.Direction.REVERSE);
+            back_left.setDirection(DcMotor.Direction.REVERSE);
+        } else{
+            front_right.setDirection(DcMotor.Direction.FORWARD);
+            front_left.setDirection(DcMotor.Direction.FORWARD);
+            back_right.setDirection(DcMotor.Direction.FORWARD);
+            back_left.setDirection(DcMotor.Direction.FORWARD);
+        }
+            
         if ((Math.abs(gamepad1.left_stick_x) < 0.7) && (Math.abs(gamepad1.right_stick_x) < 0.7)) {
             back_left.setPower(-(double) removeDeadzone(deadzone, gamepad1.left_stick_y));
             front_left.setPower(-(double) removeDeadzone(deadzone, gamepad1.left_stick_y));
@@ -36,6 +50,10 @@ public class FullTeleOp extends OpMode {
             front_left.setPower(0.7);
             back_right.setPower(-0.7);
             front_right.setPower(0.7);
+        }
+        
+        if(gamepad1.left_bumper){
+            direction = !direction;//reverses robot 'changes orientation'
         }
 
         if (gamepad2.y) {
