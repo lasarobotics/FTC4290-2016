@@ -23,21 +23,26 @@ public class FullTeleOp extends OpMode {
     }
 
     public void loop() {
+            if(direction){
+                telemetry.addData("direction: forward")
+            } else {
+                telemetry.addData("direction: reverse")
+            }
         if(!direction){
-            front_right.setDirection(DcMotor.Direction.REVERSE);
-            front_left.setDirection(DcMotor.Direction.REVERSE);
-            back_right.setDirection(DcMotor.Direction.REVERSE);
-            back_left.setDirection(DcMotor.Direction.REVERSE);
-        } else{
-            front_right.setDirection(DcMotor.Direction.FORWARD);
-            front_left.setDirection(DcMotor.Direction.FORWARD);
-            back_right.setDirection(DcMotor.Direction.FORWARD);
             back_left.setDirection(DcMotor.Direction.FORWARD);
+            front_left.setDirection(DcMotor.Direction.FORWARD);
+            back_right.setDirection(DcMotor.Direction.REVERSE);
+            front_right.setDirection(DcMotor.Direction.REVERSE);
+        } else{
+            back_left.setDirection(DcMotor.Direction.REVERSE);
+            front_left.setDirection(DcMotor.Direction.REVERSE);
+            back_right.setDirection(DcMotor.Direction.FORWARD);
+            front_right.setDirection(DcMotor.Direction.FORWARD);
         }
             
         if ((Math.abs(gamepad1.left_stick_x) < 0.7) && (Math.abs(gamepad1.right_stick_x) < 0.7)) {
-            back_left.setPower(-(double) removeDeadzone(deadzone, gamepad1.left_stick_y));
-            front_left.setPower(-(double) removeDeadzone(deadzone, gamepad1.left_stick_y));
+            back_left.setPower((double) removeDeadzone(deadzone, gamepad1.left_stick_y));
+            front_left.setPower((double) removeDeadzone(deadzone, gamepad1.left_stick_y));
             back_right.setPower((double) removeDeadzone(deadzone, gamepad1.right_stick_y));
             front_right.setPower((double) removeDeadzone(deadzone, gamepad1.right_stick_y));
         } else if ((gamepad1.left_stick_x + gamepad1.right_stick_x)/2 < 0) { // left mecanum
