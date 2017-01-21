@@ -19,7 +19,6 @@ public class FullTeleOp extends OpMode {
         shooter = hardwareMap.dcMotor.get("shooter");
         shooter.setDirection(DcMotor.Direction.REVERSE);
         intake = hardwareMap.dcMotor.get("intake");
-
     }
 
     public void loop() {
@@ -45,14 +44,14 @@ public class FullTeleOp extends OpMode {
             front_left.setPower((double) removeDeadzone(deadzone, gamepad1.left_stick_y));
             back_right.setPower((double) removeDeadzone(deadzone, gamepad1.right_stick_y));
             front_right.setPower((double) removeDeadzone(deadzone, gamepad1.right_stick_y));
-        } else if ((gamepad1.left_stick_x + gamepad1.right_stick_x)/2 < 0) { // left mecanum
-            back_left.setPower(0.7);
-            front_left.setPower(-0.7);
-            back_right.setPower(0.7);
-            front_right.setPower(-0.7);
-        } else if ((gamepad1.left_stick_x + gamepad1.right_stick_x)/2 > 0) { // right mecanum
+        } else if ((gamepad1.left_stick_x + gamepad1.right_stick_x) / 2 < 0) { // left mecanum
             back_left.setPower(-0.7);
             front_left.setPower(0.7);
+            back_right.setPower(0.7);
+            front_right.setPower(-0.7);
+        } else if ((gamepad1.left_stick_x + gamepad1.right_stick_x) / 2 > 0) { // right mecanum
+            back_left.setPower(0.7);
+            front_left.setPower(-0.7);
             back_right.setPower(-0.7);
             front_right.setPower(0.7);
         }
@@ -74,7 +73,7 @@ public class FullTeleOp extends OpMode {
         } else {
             shooter.setPower(0);
         }
-        
+
     }
 
     public void stop() {
